@@ -27,8 +27,8 @@ docker-compose up -d
 4. Create a **.env** file in the root of the project and add the following variables:
 ```python
 PORT=3333
-DATABASE_URL="postgresql://docker:docker@localhost:5432/selffy-db"
-JWT_SECRET="ssdfdshibdshsadI@!O&#r!@#F!OE8612t37%R#!@^#^r1"
+DATABASE_URL="postgresql://user_concorri:password_concorri@localhost:5432/concorri_db"
+JWT_SECRET="aidhbauhgdab81263t12836215t3dadufvsadugdf"
 ```
 5. Add the migrations: 
 ```bash

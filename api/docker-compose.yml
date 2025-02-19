@@ -1,0 +1,10 @@
+services:
+  concorri_db:
+    image: bitnami/postgresql:latest
+    container_name: concorri_db
+    environment:
+      POSTGRES_USER: user_concorri
+      POSTGRES_PASSWORD: password_concorri
+      POSTGRES_DB: concorri_db
+    ports:
+      - "5432:5432"

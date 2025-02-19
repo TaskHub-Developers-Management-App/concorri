@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+
+  stores Store?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model Store {
+  id      String @id @default(uuid())
+  name    String
+  phone   String @unique
+  address String @unique
+
+  User    User      @relation(fields: [ownerId], references: [id])
+  ownerId String    @unique @map("owner_id")
+  lottery Lottery[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model Lottery {
+  id          String        @id @default(uuid())
+  name        String
+  description String
+  status      LotteryStatus @default(ACTIVE)
+  drawDate    DateTime      @map("draw_date")
+
+  Store   Store    @relation(fields: [storeId], references: [id])
+  storeId String   @map("store_id")
+  coupon  Coupon[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model Coupon {
+  id              String @id @default(uuid())
+  customerName    String @map("customer_name")
+  customerPhone   String @map("customer_phone")
+  customerAddress String @map("customer_address")
+  customerCPF     String @map("customer_cpf")
+
+  lottery   Lottery @relation(fields: [lotteryId], references: [id])
+  lotteryId String  @map("lottery_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+}
+
+enum LotteryStatus {
+  ACTIVE
+  INACTIVE
+}

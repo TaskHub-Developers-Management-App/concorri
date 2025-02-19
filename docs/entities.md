@@ -1,7 +1,19 @@
 # 📌 Entities Tracking
 
+## 👤 User
+A user must be the owner of a **store**.
+
+| Attribute  | Description |
+|------------|------------|
+| **id** | Unique identifier for the store |
+| **name** | Store's official name |
+| **email** | Store's contact email (must be unique) |
+| **password** | Hashed password for authentication |
+| **createdAt** | Timestamp indicating when the store was created |
+| **updatedAt** | Timestamp indicating when the store was last updated |
+
 ## 🏪 Store  
-A store can have multiple **lotteries**.  
+A store can have multiple **lotteries** and belongs to an **user**.  
 
 | Attribute  | Description |
 |------------|------------|
@@ -9,9 +21,9 @@ A store can have multiple **lotteries**.
 | **name** | Store's official name |
 | **phone** | WhatsApp number of the store (must be unique) |
 | **address** | Store's physical address |
-| **email** | Store's contact email (must be unique) |
-| **password** | Hashed password for authentication |
+| **ownerId** | Reference to the user who owns this store |
 | **createdAt** | Timestamp indicating when the store was created |
+| **updatedAt** | Timestamp indicating when the store was last updated |
 
 ## 🎟️ Lottery  
 A lottery belongs to a **store** and can have multiple **coupons**.  

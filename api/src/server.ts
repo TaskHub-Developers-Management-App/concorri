@@ -9,6 +9,7 @@ import fastifyJwt from "@fastify/jwt";
 
 import { SignUpUserRoute } from "./routes/auth/signup-user.route";
 import { LoginUserRoute } from "./routes/auth/login-user.route";
+import { CreateStoreRoute } from "./routes/store/create-store.route";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -23,7 +24,8 @@ app.setValidatorCompiler(validatorCompiler);
 app.register(SignUpUserRoute);
 app.register(LoginUserRoute);
 
-// User Routes
+// Store Routes
+app.register(CreateStoreRoute);
 
 
 // ...

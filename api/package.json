@@ -11,11 +11,15 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@fastify/jwt": "^9.0.4",
     "@prisma/client": "^6.4.0",
+    "bcrypt": "^5.1.1",
     "fastify": "^5.2.1",
+    "fastify-type-provider-zod": "^4.0.2",
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^22.13.4",
     "prisma": "^6.4.0",
     "tsx": "^4.19.2",

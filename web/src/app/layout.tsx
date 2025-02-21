@@ -1,7 +1,5 @@
+import { HeroUIProvider } from '@heroui/system';
 import './globals.css';
-import '@mantine/core/styles.css';
-
-import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from '@mantine/core';
 
 export const metadata = {
   title: 'Concorri',
@@ -14,12 +12,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" {...mantineHtmlProps}>
-      <head>
-        <ColorSchemeScript />
-      </head>
+    <html lang="en">
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <HeroUIProvider>
+          {children}
+        </HeroUIProvider>
       </body>
     </html>
   );

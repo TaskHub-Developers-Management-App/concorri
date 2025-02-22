@@ -1,6 +1,8 @@
 import { HeroUIProvider } from '@heroui/system';
 import './globals.css';
 
+import favicon from "@/assets/short-logo.svg";
+
 export const metadata = {
   title: 'Concorri',
   description: 'Sistema de sorteios sem complicação',
@@ -13,6 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href={favicon.src} />
+      </head>
       <body>
         <HeroUIProvider>
           {children}

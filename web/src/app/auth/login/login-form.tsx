@@ -3,7 +3,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Divider, Input, Button, Link } from "@heroui/react";
+import { Input, Button, Link } from "@heroui/react";
+import { FormHeader } from "@/components/form";
 
 const loginSchema = z.object({
     email: z.string().email("Informe um e-mail válido"),
@@ -28,13 +29,10 @@ export function LoginForm() {
 
     return (
         <main className="w-full max-w-md space-y-4">
-            <header className="flex gap-3">
-                <div className="flex flex-col">
-                    <h1 className="text-xl font-semibold">Bem-vindo de volta</h1>
-                    <p className="text-small text-default-500">Entre na sua conta</p>
-                </div>
-            </header>
-            <Divider />
+            <FormHeader 
+                title="Bem-vindo de volta"
+                description="Entre na sua conta"
+            />
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                 <div>
                     <Input

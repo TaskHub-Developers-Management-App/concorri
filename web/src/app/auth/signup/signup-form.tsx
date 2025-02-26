@@ -3,7 +3,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Divider, Input, Button, Link } from "@heroui/react";
+import { Input, Button, Link } from "@heroui/react";
+import { FormHeader } from "@/components/form";
 
 const signUpSchema = z.object({
     name: z.string().min(2, "O nome deve ter pelo menos 2 caracteres"),
@@ -29,13 +30,10 @@ export function SignUpForm() {
 
     return (
         <main className="w-full max-w-md space-y-4">
-            <header className="flex gap-3">
-                <div className="flex flex-col">
-                    <h1 className="text-xl font-semibold">Crie sua conta</h1>
-                    <p className="text-small text-default-500">Preencha os campos abaixo para se cadastrar</p>
-                </div>
-            </header>
-            <Divider />
+            <FormHeader
+                title="Crie sua conta"
+                description="Preencha os campos abaixo para se cadastrar"
+            /> 
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                 <div>
                     <Input

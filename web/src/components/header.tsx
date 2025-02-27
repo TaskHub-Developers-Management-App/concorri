@@ -4,10 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 
 import {
-    HomeIcon,
+    BuildingStorefrontIcon,
     TicketIcon,
-    ReceiptRefundIcon,
-    Cog6ToothIcon
+    UserIcon
 } from "@heroicons/react/24/outline";
 
 import {
@@ -30,9 +29,9 @@ import {
 
 import logo from "@/assets/logo.svg";
 
-export default function Header() {
+export function Header() {
     return (
-        <header className="bg-white shadow-md">
+        <header className="bg-white shadow-md flex items-center justify-center">
             <Navbar
                 classNames={{
                     item: [
@@ -62,12 +61,6 @@ export default function Header() {
                     </Link>
                 </NavbarBrand>
                 <NavbarContent className="hidden sm:flex gap-10" justify="center">
-                    <NavbarItem>
-                        <Link color="foreground" href="#" className="flex items-center gap-2">
-                            <HomeIcon className="w-5 h-5" />
-                            Início
-                        </Link>
-                    </NavbarItem>
                     <NavbarItem isActive>
                         <Link aria-current="page" href="#" className="flex items-center gap-2">
                             <TicketIcon className="w-5 h-5" />
@@ -75,15 +68,15 @@ export default function Header() {
                         </Link>
                     </NavbarItem>
                     <NavbarItem>
-                        <Link color="foreground" href="#" className="flex items-center gap-2">
-                            <ReceiptRefundIcon className="w-5 h-5" />
-                            Cupons
+                        <Link aria-current="page" href="#" className="flex items-center gap-2">
+                            <UserIcon className="w-5 h-5" />
+                            Minha Conta
                         </Link>
                     </NavbarItem>
                     <NavbarItem>
                         <Link color="foreground" href="#" className="flex items-center gap-2">
-                            <Cog6ToothIcon className="w-5 h-5" />
-                            Configurações
+                            <BuildingStorefrontIcon className="w-5 h-5" />
+                            Minha Loja
                         </Link>
                     </NavbarItem>
                     <NavbarItem>
@@ -102,7 +95,6 @@ export default function Header() {
                                 <DropdownItem key="profile" className="h-14 gap-2">
                                     <p className="font-semibold">john.doe@example.com</p>
                                 </DropdownItem>
-                                <DropdownItem key="settings">Minha Conta</DropdownItem>
                                 <DropdownItem key="help_and_feedback">Ajuda e Suporte</DropdownItem>
                                 <DropdownItem key="logout" color="danger">
                                     Sair

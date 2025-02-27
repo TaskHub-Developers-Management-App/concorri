@@ -92,7 +92,7 @@ export function CreateStoreForm() {
                 </Button>
                 <footer className="w-full flex justify-center">
                     <Link
-                        href="/stores"
+                        href="/auth/login"
                         className="text-small text-primary hover:underline underline-offset-4 text-center"
                     >
                         Já tenho uma loja cadastrada

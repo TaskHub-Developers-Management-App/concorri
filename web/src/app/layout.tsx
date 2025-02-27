@@ -18,7 +18,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href={favicon.src} />
       </head>
-      <body>
+      <body className='bg-slate-50 h-dvh'>
         <HeroUIProvider>
           {children}
         </HeroUIProvider>

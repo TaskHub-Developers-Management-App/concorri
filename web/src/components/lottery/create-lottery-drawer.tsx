@@ -6,7 +6,6 @@ import {
     DrawerContent,
     DrawerHeader,
     DrawerBody,
-    DrawerFooter,
     Button,
     useDisclosure,
     Input,
@@ -119,10 +118,10 @@ export function CreateLotteryDrawer() {
                                         }
                                     </div>
                                     <footer className="flex items-center justify-end gap-2">
-                                        <Button color="danger" variant="light" onPress={onClose}>
+                                        <Button  color="danger" variant="light" onPress={onClose}>
                                             Cancelar
                                         </Button>
-                                        <Button color="primary" type="submit" form="create-lottery-form">
+                                        <Button color="primary" type="submit">
                                             Cadastrar
                                         </Button>
                                     </footer>

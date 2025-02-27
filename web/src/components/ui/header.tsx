@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 import {
     BuildingStorefrontIcon,
@@ -30,6 +31,9 @@ import {
 import logo from "@/assets/logo.svg";
 
 export function Header() {
+    
+    const pathname = usePathname();
+
     return (
         <header className="bg-white shadow-md flex items-center justify-center">
             <Navbar
@@ -61,20 +65,20 @@ export function Header() {
                     </Link>
                 </NavbarBrand>
                 <NavbarContent className="hidden sm:flex gap-10" justify="center">
-                    <NavbarItem isActive>
-                        <Link aria-current="page" href="#" className="flex items-center gap-2">
+                    <NavbarItem isActive={pathname === '/'}>
+                        <Link aria-current="page" href="/" className="flex items-center gap-2">
                             <TicketIcon className="w-5 h-5" />
-                            Sorteios
+                            Meus Sorteios
                         </Link>
                     </NavbarItem>
-                    <NavbarItem>
-                        <Link aria-current="page" href="#" className="flex items-center gap-2">
+                    <NavbarItem isActive={pathname === '/account'}>
+                        <Link aria-current="page" href="/account" className="flex items-center gap-2">
                             <UserIcon className="w-5 h-5" />
                             Minha Conta
                         </Link>
                     </NavbarItem>
-                    <NavbarItem>
-                        <Link color="foreground" href="#" className="flex items-center gap-2">
+                    <NavbarItem isActive={pathname === '/store'}>
+                        <Link color="foreground" href="/store" className="flex items-center gap-2">
                             <BuildingStorefrontIcon className="w-5 h-5" />
                             Minha Loja
                         </Link>

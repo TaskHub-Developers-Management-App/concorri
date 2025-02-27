@@ -27,6 +27,9 @@ const lotterySchema = z.object({
         .string({ message: "Descrição do sorteio é obrigatório" })
         .trim()
         .min(1, "Descrição do sorteio é obrigatório"),
+    couponPrice: z
+        .number({ message: "Preço do cupom é obrigatório" })
+        .min(1, "Preço do cupom é obrigatório"),
     drawDate: z
         .date({ message: "Data do sorteio é obrigatório" })
         .min(new Date(), "Data do sorteio deve ser maior que a data atual"),
@@ -98,6 +101,21 @@ export function CreateLotteryDrawer() {
                                         }
                                     </div>
                                     <div>
+                                        <Input
+                                            label="Preço do cupom"
+                                            type="number"
+                                            placeholder="Digite o preço para emitir um cupom"
+                                            {...register("couponPrice", { valueAsNumber: true })}
+                                        />
+                                        {
+                                            errors.description && (
+                                                <FormError className="text-red-500 text-sm">
+                                                    {errors.description.message}
+                                                </FormError>
+                                            )
+                                        }
+                                    </div>
+                                    <div>
                                         <DatePicker
                                             label="Data do Sorteio"
                                             onChange={(value) => {
@@ -118,7 +136,7 @@ export function CreateLotteryDrawer() {
                                         }
                                     </div>
                                     <footer className="flex items-center justify-end gap-2">
-                                        <Button  color="danger" variant="light" onPress={onClose}>
+                                        <Button color="danger" variant="light" onPress={onClose}>
                                             Cancelar
                                         </Button>
                                         <Button color="primary" type="submit">

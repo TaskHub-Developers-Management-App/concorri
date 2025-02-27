@@ -1,6 +1,6 @@
 "use client"
 
-import { FormError, FormHeader } from "@/components/form";
+import { FormError, FormHeader } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input, Button, Link } from "@heroui/react";

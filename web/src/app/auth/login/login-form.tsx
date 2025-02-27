@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input, Button, Link } from "@heroui/react";
-import { FormHeader } from "@/components/form";
+import { FormError, FormHeader } from "@/components/ui/form";
 
 const loginSchema = z.object({
     email: z.string().email("Informe um e-mail válido"),
@@ -29,7 +29,7 @@ export function LoginForm() {
 
     return (
         <main className="w-full max-w-md space-y-4">
-            <FormHeader 
+            <FormHeader
                 title="Bem-vindo de volta"
                 description="Entre na sua conta"
             />
@@ -42,9 +42,9 @@ export function LoginForm() {
                     />
                     {
                         errors.email && (
-                            <p className="text-red-500 text-sm">
+                            <FormError className="text-red-500 text-sm">
                                 {errors.email.message}
-                            </p>
+                            </FormError>
                         )
                     }
                 </div>
@@ -56,9 +56,9 @@ export function LoginForm() {
                     />
                     {
                         errors.password && (
-                            <p className="text-red-500 text-sm">
+                            <FormError className="text-red-500 text-sm">
                                 {errors.password.message}
-                            </p>
+                            </FormError>
                         )
                     }
                 </div>

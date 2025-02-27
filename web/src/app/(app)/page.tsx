@@ -1,8 +1,7 @@
-import { Header } from "@/components/header";
-import { LotteryCard } from "@/components/loteries-card";
-import { PlusIcon } from "@heroicons/react/20/solid";
-import { Button } from "@heroui/button";
+import { Header } from "@/components/ui/header";
+import { LotteryCard } from "@/components/lottery/loteries-card";;
 import { Divider } from "@heroui/divider";
+import { CreateLotteryDrawer } from "@/components/lottery/create-lottery-drawer";
 
 export default function HomePage() {
     return (
@@ -13,9 +12,7 @@ export default function HomePage() {
                     <h1 className="text-2xl font-semibold">
                         Meus Sorteios
                     </h1>
-                    <Button color="primary" startContent={<PlusIcon className="size-5" />}>
-                        Criar sorteio
-                    </Button>
+                    <CreateLotteryDrawer />
                 </header>
                 <Divider className="my-4" />
                 <div className="grid grid-cols-4 w-full">

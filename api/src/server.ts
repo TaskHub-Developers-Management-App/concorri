@@ -27,7 +27,6 @@ app.register(LoginUserRoute);
 // Store Routes
 app.register(CreateStoreRoute);
 
-
 // ...
 
 app.listen({ port: env.PORT }).then(() => {

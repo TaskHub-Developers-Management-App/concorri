@@ -54,7 +54,7 @@ model Lottery {
   updatedAt DateTime @updatedAt @map("updated_at")
 }
 
-model Coupon {
+model   Coupon {
   id              String @id @default(uuid())
   customerName    String @map("customer_name")
   customerPhone   String @map("customer_phone")

@@ -10,6 +10,7 @@ import fastifyJwt from "@fastify/jwt";
 import { SignUpUserRoute } from "./routes/auth/signup-user.route";
 import { LoginUserRoute } from "./routes/auth/login-user.route";
 import { CreateStoreRoute } from "./routes/store/create-store.route";
+import { CreateCouponRoute } from "./routes/coupon/create-coupon.route";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -26,6 +27,9 @@ app.register(LoginUserRoute);
 
 // Store Routes
 app.register(CreateStoreRoute);
+
+// Coupon Routes
+app.register(CreateCouponRoute);
 
 // ...
 

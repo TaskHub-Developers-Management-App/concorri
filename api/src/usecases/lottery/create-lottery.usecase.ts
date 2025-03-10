@@ -21,7 +21,6 @@ export async function createLotteryUseCase(params: createlotterriesCaseParams) {
             status,
             drawDate,
             storeId
-
         }
     })
     return {lottery};

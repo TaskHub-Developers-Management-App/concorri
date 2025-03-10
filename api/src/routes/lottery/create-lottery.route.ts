@@ -1,6 +1,6 @@
 import type{ FastifyInstance } from "fastify";
 import type{ ZodTypeProvider } from "fastify-type-provider-zod";
-import { createLotteryUseCase } from "../../usecases/lottery/create";
+import { createLotteryUseCase } from "../../usecases/lottery/create-lottery.usecase";
 import { z } from "zod";
 
 

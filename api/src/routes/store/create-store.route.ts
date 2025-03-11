@@ -7,7 +7,7 @@ export function CreateStoreRoute(app: FastifyInstance) {
     app
         .withTypeProvider<ZodTypeProvider>()
         .post(
-            '/stores',
+            '/store',
             {
                 schema: {
                     body: z.object({

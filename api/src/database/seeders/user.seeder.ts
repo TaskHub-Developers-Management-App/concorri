@@ -1,7 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { randomUUID } from "crypto";
+import * as bcrypt from 'bcrypt';
 
 export async function userSeeder(prismaService: PrismaClient) {
+    const saltRounds = 1;
 
     const defaultUsers = [
         {
@@ -31,14 +33,14 @@ export async function userSeeder(prismaService: PrismaClient) {
         }
     ]
 
-    const usersData = defaultUsers.map((user) => ({
+    const usersData = await Promise.all(defaultUsers.map(async (user) => ({
         id: randomUUID(),
         name: user.name,
         email: user.email,
-        password: user.password,
+        password: await bcrypt.hash(user.password, saltRounds),
         createdAt: new Date(),
         updatedAt: new Date(),
-    }));
+    })));
 
     await prismaService.user.createMany({
         data: usersData

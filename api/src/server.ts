@@ -11,6 +11,9 @@ import { SignUpUserRoute } from "./routes/auth/signup-user.route";
 import { LoginUserRoute } from "./routes/auth/login-user.route";
 import { CreateStoreRoute } from "./routes/store/create-store.route";
 import { CreateCouponRoute } from "./routes/coupon/create-coupon.route";
+import { FindAllStoresRoute } from "./routes/store/find-all-stores.route";
+import { CreateLotteryRoute } from "./routes/lottery/create-lottery.route";
+import { FindAllLotteriesByStoreIdRoute } from "./routes/lottery/find-all-lotteries-by-store-id.route";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -25,14 +28,17 @@ app.setValidatorCompiler(validatorCompiler);
 app.register(SignUpUserRoute);
 app.register(LoginUserRoute);
 
+// Lottery Routes
+app.register(CreateLotteryRoute);
+app.register(FindAllLotteriesByStoreIdRoute);
+
 // Store Routes
 app.register(CreateStoreRoute);
+app.register(FindAllStoresRoute);
 
 // Coupon Routes
 app.register(CreateCouponRoute);
 
-// ...
-
 app.listen({ port: env.PORT }).then(() => {
     console.log('HTTP Server Running!')
-})
+});

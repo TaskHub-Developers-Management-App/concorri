@@ -3,8 +3,9 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Input, Button, Link } from "@heroui/react";
+import { Input, Button, Link, addToast } from "@heroui/react";
 import { FormError, FormHeader } from "@/components/ui/form";
+import { loginAction } from "./action";
 
 const loginSchema = z.object({
     email: z.string().email("Informe um e-mail válido"),
@@ -23,8 +24,23 @@ export function LoginForm() {
         resolver: zodResolver(loginSchema),
     });
 
-    function onSubmit(data: LoginFormValues) {
-        console.log("Tentativa de login com: ", data);
+    async function onSubmit(data: LoginFormValues) {
+        const response = await loginAction(data);
+
+        if (response.success === true) {
+            addToast({
+                title: "Sucesso",
+                description: response.message,
+                color: 'success',
+            });
+            return;
+        } 
+
+        addToast({
+            title: "Erro",
+            description: response.message,
+            color: 'danger',
+        });
     };
 
     return (

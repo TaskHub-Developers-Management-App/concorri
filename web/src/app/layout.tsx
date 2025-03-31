@@ -1,5 +1,6 @@
 import { HeroUIProvider } from '@heroui/system';
 import './globals.css';
+import { ToastProvider } from "@heroui/toast";
 
 import favicon from "@/assets/short-logo.svg";
 
@@ -20,6 +21,7 @@ export default function RootLayout({
       </head>
       <body className='bg-slate-50 h-dvh'>
         <HeroUIProvider>
+          <ToastProvider />
           {children}
         </HeroUIProvider>
       </body>

@@ -15,7 +15,7 @@ export async function LoginUserUseCase(params: LoginUserParams) {
     });
 
     if (!user) {
-        throw new UnauthorizedError('Invalid credentials');
+        throw new UnauthorizedError('Crendenciais inválidas!');
     }
 
     const token = app.jwt.sign(

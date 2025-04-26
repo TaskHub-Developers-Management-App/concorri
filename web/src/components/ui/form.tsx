@@ -36,12 +36,15 @@ export function FormHeader({ title, description }: FormHeaderProps) {
         <>
             <header className="flex gap-3">
                 <div className="flex flex-col">
+                    
                     <FormHeading>
                         {title}
                     </FormHeading>
+
                     <FormDescription>
                         {description}
                     </FormDescription>
+
                 </div>
             </header>
             <Divider />

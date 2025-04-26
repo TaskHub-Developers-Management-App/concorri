@@ -7,7 +7,7 @@ type createlotterriesCaseParams = {
     name: string;
     description: string;
     status: LotteryStatus;
-    drawDate: string;
+    drawDate: Date;
     storeId: string;
 };
 

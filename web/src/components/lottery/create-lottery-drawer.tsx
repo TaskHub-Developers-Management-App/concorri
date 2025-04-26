@@ -30,9 +30,14 @@ const lotterySchema = z.object({
     couponPrice: z
         .number({ message: "Preço do cupom é obrigatório" })
         .min(1, "Preço do cupom é obrigatório"),
+  
     drawDate: z
-        .date({ message: "Data do sorteio é obrigatório" })
-        .min(new Date(), "Data do sorteio deve ser maior que a data atual"),
+        .any()
+        .refine((val) => val != null, { message: "Data do sorteio é obrigatória" })
+        .refine((val) => new Date(val) > new Date(), {
+          message: "A data do sorteio deve ser maior que a data atual",
+        }),
+        
 });
 
 type LotteryFormValues = z.infer<typeof lotterySchema>;
@@ -45,9 +50,12 @@ export function CreateLotteryDrawer() {
         register,
         handleSubmit,
         formState: { errors },
+        setValue,
+        watch,
     } = useForm({
         resolver: zodResolver(lotterySchema),
     });
+    const drawDate = watch("drawDate");
 
     function onSubmit(data: LotteryFormValues) {
         console.log("Tentativa de cadastro de sorteio com: ", data);
@@ -118,19 +126,18 @@ export function CreateLotteryDrawer() {
                                     <div>
                                         <DatePicker
                                             label="Data do Sorteio"
-                                            onChange={(value) => {
-                                                if (value) {
-                                                    register("drawDate").onChange({
-                                                        target: { value },
-                                                        type: "change"
-                                                    })
+                                            value={drawDate}
+                                            onChange={(value =>{
+                                                if(value){
+                                                    setValue("drawDate",value, {shouldValidate:true});
                                                 }
-                                            }}
+                                            })}
+                                            
                                         />
                                         {
                                             errors.drawDate && (
                                                 <FormError className="text-red-500 text-sm">
-                                                    {errors.drawDate.message}
+                                                    {String(errors.drawDate?.message || "")}
                                                 </FormError>
                                             )
                                         }

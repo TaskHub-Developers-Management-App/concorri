@@ -1,6 +1,7 @@
 "use server"
 
-import { loginRequest } from "@/http/login.http";
+import { cookies } from 'next/headers'
+import { loginRequest } from "@/http/auth/login.http";
 import { HTTPError } from "ky";
 
 type LoginActionData = {
@@ -10,13 +11,19 @@ type LoginActionData = {
 
 export async function loginAction(data: LoginActionData) {
     try {
-        await loginRequest(data);
+        const { token } = await loginRequest(data);
+
+        const cookieStore = await cookies();
+
+        cookieStore.set('token', token, {
+            maxAge: 60 * 60 // 1 hour
+        });
 
         return {
             success: true,
             message: 'Login realizado com sucesso!'
         }
-        
+
     } catch (error: any) {
 
         if (error instanceof HTTPError) {
@@ -25,7 +32,7 @@ export async function loginAction(data: LoginActionData) {
             return {
                 success: false,
                 message
-            }  
+            }
         }
 
         return {

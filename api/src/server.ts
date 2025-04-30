@@ -8,6 +8,7 @@ import {
 import fastifyJwt from "@fastify/jwt";
 
 import { SignUpUserRoute } from "./routes/auth/signup-user.route";
+import { GetUserProfileRoute } from "./routes/auth/get-user-profile.route";
 import { LoginUserRoute } from "./routes/auth/login-user.route";
 import { CreateStoreRoute } from "./routes/store/create-store.route";
 import { CreateCouponRoute } from "./routes/coupon/create-coupon.route";
@@ -29,6 +30,7 @@ app.setErrorHandler(errorHandler);
 // Auth Routes
 app.register(SignUpUserRoute);
 app.register(LoginUserRoute);
+app.register(GetUserProfileRoute);
 
 // Lottery Routes
 app.register(CreateLotteryRoute);

@@ -6,6 +6,7 @@ import { z } from "zod";
 import { Input, Button, Link, addToast } from "@heroui/react";
 import { FormError, FormHeader } from "@/components/ui/form";
 import { loginAction } from "./action";
+import { useRouter } from "next/navigation";
 
 const loginSchema = z.object({
     email: z.string().email("Informe um e-mail válido"),
@@ -15,6 +16,8 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
+
+    const router = useRouter();
 
     const {
         register,
@@ -33,8 +36,11 @@ export function LoginForm() {
                 description: response.message,
                 color: 'success',
             });
+            
+            router.push('/');
+
             return;
-        } 
+        }
 
         addToast({
             title: "Erro",

@@ -14,6 +14,7 @@ import { CreateCouponRoute } from "./routes/coupon/create-coupon.route";
 import { FindAllStoresRoute } from "./routes/store/find-all-stores.route";
 import { CreateLotteryRoute } from "./routes/lottery/create-lottery.route";
 import { FindAllLotteriesByStoreIdRoute } from "./routes/lottery/find-all-lotteries-by-store-id.route";
+import { FindAllCouponsByLotteryIdRoute } from "./routes/coupon/find-all-coupons-by-lottery-id.route";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -38,6 +39,7 @@ app.register(FindAllStoresRoute);
 
 // Coupon Routes
 app.register(CreateCouponRoute);
+app.register(FindAllCouponsByLotteryIdRoute)
 
 app.listen({ port: env.PORT }).then(() => {
     console.log('HTTP Server Running!')

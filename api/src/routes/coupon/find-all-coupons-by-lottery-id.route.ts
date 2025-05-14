@@ -2,14 +2,7 @@ import fastify, { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { findAllCouponsByLotteryIdUseCase } from "../../usecases/coupon/find-all-coupons-by-lottery-id.usecase";
-
-interface JwtPayload {
-    sub: string;
-    name: string;
-    email: string;
-    iat: number;
-    exp: number;
-}
+import { TokenPayload } from "../../_types/token";
 
 export async function FindAllCouponsByLotteryIdRoute(app: FastifyInstance) {
     app
@@ -27,7 +20,7 @@ export async function FindAllCouponsByLotteryIdRoute(app: FastifyInstance) {
                     })
                 },
             }, async (request, reply) => {
-                const token = await request.jwtVerify() as JwtPayload;
+                const token = await request.jwtVerify() as TokenPayload;
 
                 const userId = token.sub;
 

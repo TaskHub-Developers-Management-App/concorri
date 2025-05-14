@@ -1,8 +1,7 @@
 import { Coupon } from "@prisma/client";
 import { Pageable, PageableQuery } from "../../shared/pageable.type";
 import { prismaClient } from "../../../lib/prisma";
-import { InvalidQueryError } from "../../_errors/invalid-query-filter";
-import { UnauthorizedUserRequestForCoupons } from "../../_errors/unauthorized-request-for-coupons-of-lottery.error";
+import { UnauthorizedUserRequestForCouponsError } from "../../_errors/unauthorized-request-for-coupons-of-lottery.error";
 
 export async function findAllCouponsByLotteryIdUseCase(
     query: PageableQuery,
@@ -38,7 +37,7 @@ export async function findAllCouponsByLotteryIdUseCase(
     ])
 
     if (!isRequestUserTheStoreOwner) {
-        throw new UnauthorizedUserRequestForCoupons();
+        throw new UnauthorizedUserRequestForCouponsError();
     }
 
     const totalPages = Math.ceil(total / limit);

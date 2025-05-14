@@ -8,6 +8,7 @@ import {
 import fastifyJwt from "@fastify/jwt";
 
 import { SignUpUserRoute } from "./routes/auth/signup-user.route";
+import { GetUserProfileRoute } from "./routes/auth/get-user-profile.route";
 import { LoginUserRoute } from "./routes/auth/login-user.route";
 import { CreateStoreRoute } from "./routes/store/create-store.route";
 import { CreateCouponRoute } from "./routes/coupon/create-coupon.route";
@@ -15,6 +16,7 @@ import { FindAllStoresRoute } from "./routes/store/find-all-stores.route";
 import { CreateLotteryRoute } from "./routes/lottery/create-lottery.route";
 import { FindAllLotteriesByStoreIdRoute } from "./routes/lottery/find-all-lotteries-by-store-id.route";
 import { FindAllCouponsByLotteryIdRoute } from "./routes/coupon/find-all-coupons-by-lottery-id.route";
+import { errorHandler } from "./error-handler";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -24,10 +26,12 @@ app.register(fastifyJwt, {
 
 app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
+app.setErrorHandler(errorHandler);
 
 // Auth Routes
 app.register(SignUpUserRoute);
 app.register(LoginUserRoute);
+app.register(GetUserProfileRoute);
 
 // Lottery Routes
 app.register(CreateLotteryRoute);

@@ -7,7 +7,8 @@ import { usePathname } from "next/navigation";
 import {
     BuildingStorefrontIcon,
     TicketIcon,
-    UserIcon
+    UserIcon,
+    ArrowRightEndOnRectangleIcon
 } from "@heroicons/react/24/outline";
 
 import {
@@ -17,21 +18,15 @@ import {
     NavbarItem,
 } from "@heroui/navbar";
 
-import {
-    Dropdown,
-    DropdownTrigger,
-    DropdownMenu,
-    DropdownItem,
-} from "@heroui/dropdown";
-
-import {
-    Avatar
-} from "@heroui/avatar";
-
 import logo from "@/assets/logo.svg";
+import { ProfileButton } from "./profile-button";
 
-export function Header() {
-    
+type Props = {
+    children: React.ReactNode;
+}
+
+export function Header({ children }: Props) {
+
     const pathname = usePathname();
 
     return (
@@ -84,27 +79,13 @@ export function Header() {
                         </Link>
                     </NavbarItem>
                     <NavbarItem>
-                        <Dropdown placement="bottom-end">
-                            <DropdownTrigger>
-                                <Avatar
-                                    as="button"
-                                    className="transition-transform"
-                                    color="primary"
-                                    name="John Doe"
-                                    size="sm"
-                                    fallback="JD"
-                                />
-                            </DropdownTrigger>
-                            <DropdownMenu aria-label="User menu">
-                                <DropdownItem key="profile" className="h-14 gap-2">
-                                    <p className="font-semibold">john.doe@example.com</p>
-                                </DropdownItem>
-                                <DropdownItem key="help_and_feedback">Ajuda e Suporte</DropdownItem>
-                                <DropdownItem key="logout" color="danger">
-                                    Sair
-                                </DropdownItem>
-                            </DropdownMenu>
-                        </Dropdown>
+                        <Link color="danger" href="/auth/signout" className="flex items-center gap-2">
+                            <ArrowRightEndOnRectangleIcon className="w-5 h-5" />
+                            Sair
+                        </Link>
+                    </NavbarItem>
+                    <NavbarItem>
+                        {children}
                     </NavbarItem>
                 </NavbarContent>
             </Navbar>

@@ -26,7 +26,7 @@ app.register(fastifyJwt, {
 
 app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
-app.setErrorHandler(errorHandler);
+// app.setErrorHandler(errorHandler);
 
 // Auth Routes
 app.register(SignUpUserRoute);

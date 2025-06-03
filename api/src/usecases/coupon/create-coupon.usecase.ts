@@ -35,11 +35,14 @@ export async function createCouponUsecase(params: createCouponUsecaseParams) {
         throw new Error('Lottery not found');
     }
 
-    const qtdCouponsForSave = Math.floor(purchasePrice / lottery.couponPrice);
+    const amountCouponsForSave = Math.floor(purchasePrice / lottery.couponPrice);
 
+    if (amountCouponsForSave <= 0) {
+        throw new Error(`Amount required to participate on the raffle is not enough. Should be greater then ${lottery.couponPrice}`);
+    }
     const couponsForCreate = [
         ...Array.from(
-            { length: qtdCouponsForSave },
+            { length: amountCouponsForSave },
             () => ({
                 id: crypto.randomUUID(),
                 customerName,
@@ -51,19 +54,20 @@ export async function createCouponUsecase(params: createCouponUsecaseParams) {
             }))
     ]
 
-    const createCouponsForSave = await prismaClient.coupon.createMany({
-        data: couponsForCreate
-    })
-
     const now = new Date();
-    generateRafflePDF(
-        {
-            storeName: lottery.name,
-            lotteryName: lottery.name
-        },
-        couponsForCreate,
-        `./_temp/${now.toISOString().replace(/[:.]/g, '-')}.pdf`
-    );
+    await Promise.all([
+        prismaClient.coupon.createMany({
+            data: couponsForCreate
+        }),
+        generateRafflePDF(
+            {
+                storeName: lottery.name,
+                lotteryName: lottery.name
+            },
+            couponsForCreate,
+            `./_temp/${now.toISOString().replace(/[:.]/g, '-')}.pdf`
+        )
+    ])
 
     return { coupons: couponsForCreate };
 

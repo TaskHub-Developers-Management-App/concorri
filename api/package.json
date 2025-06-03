@@ -16,9 +16,11 @@
   "dependencies": {
     "@fastify/jwt": "^9.0.4",
     "@prisma/client": "^6.4.0",
+    "@types/pdfkit": "^0.13.9",
     "bcrypt": "^5.1.1",
     "fastify": "^5.2.1",
     "fastify-type-provider-zod": "^4.0.2",
+    "pdfkit": "^0.17.1",
     "zod": "^3.24.2"
   },
   "devDependencies": {

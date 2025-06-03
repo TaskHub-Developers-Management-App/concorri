@@ -22,6 +22,9 @@ export async function findAllLotteriesByUserIdUseCase(
                         }
                     },
                 },
+                orderBy: {
+                    createdAt: 'desc'
+                },
                 skip: shouldPaginate ? (page - 1) * limit : undefined,
                 take: shouldPaginate ? limit : undefined,
             }),

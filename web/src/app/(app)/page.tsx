@@ -1,6 +1,6 @@
 import { LotteryCard } from "@/components/lottery/loteries-card";;
 import { Divider } from "@heroui/divider";
-import { CreateLotteryDrawer } from "@/components/lottery/create-lottery-drawer";
+import { CreateLotteryDrawer } from "@/app/(app)/create-lottery-drawer";
 import { findAllUserLotteriesRequest } from "@/http/lottery/find-all-lotteries.http";
 
 export default async function HomePage() {
@@ -16,7 +16,7 @@ export default async function HomePage() {
                 <CreateLotteryDrawer />
             </header>
             <Divider className="my-4" />
-            <div className="grid grid-cols-4 w-full">
+            <div className="grid grid-cols-4 w-full gap-4">
                 {data.map((lottery) => (
                     <LotteryCard
                         key={lottery.id}

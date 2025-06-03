@@ -1,57 +1,47 @@
 import { prismaClient } from "../../../lib/prisma";
-import { InvalidDateOrTimeError } from "../../_errors/invalid-date-or-time.error";
-import { StoreDoesNotBelongToUserError } from "../../_errors/store-does-not-belong-to-user.error";
+import { InvalidLotteryDrawDate } from "../../_errors/invalid-lottery-draw-date.error";
+import { NotFoundError } from "../../_errors/not-found.error";
 
 export type LotteryStatus = 'ACTIVE' | 'INACTIVE';
 
-type createlotterriesCaseParams = {
+type CreatelotterriesCaseParams = {
+    userId: string;
     name: string;
     description: string;
-    status: LotteryStatus;
     drawDate: string;
-    drawTime: string;
-    storeId: string;
+    couponPrice: number;
 };
 
-export async function createLotteryUseCase(params: createlotterriesCaseParams, userId: string) {
-    const {
-        name,
-        description,
-        status,
-        drawDate,
-        drawTime,
-        storeId
-    } = params;
+export async function createLotteryUseCase(data: CreatelotterriesCaseParams) {
 
-    const today = new Date();
-    const lotteryDrawDateTime = new Date(`${drawDate}T${drawTime}`);
+    const userStore = await prismaClient.store.findFirst({
+        where: {
+            User: {
+                id: data.userId
+            }
+        }
+    });
 
-    if (lotteryDrawDateTime <= today) {
-        throw new InvalidDateOrTimeError();
+    if (!userStore) {
+        throw new NotFoundError('Este usuário não possui uma loja cadastrada');
     }
 
-    const storesFromUser = await prismaClient.store.findMany({
-        where: {
-            ownerId: userId
-        }
-    })
+    const currentDate = new Date();
 
-    const storeBelongsToUser = storesFromUser.some((store) => store.id === storeId);
-
-    if (!storeBelongsToUser) {
-        throw new StoreDoesNotBelongToUserError();
+    if (new Date(data.drawDate) < currentDate) {
+        throw new InvalidLotteryDrawDate();
     }
 
     const lottery = await prismaClient.lottery.create({
         data: {
-            name,
-            description,
-            status,
-            drawDate,
-            drawTime,
-            storeId
+            name: data.name,
+            description: data.description,
+            drawDate: new Date(data.drawDate),
+            storeId: userStore.id,
+            couponPrice: data.couponPrice,
         }
     })
 
-    return { lottery };
+    return { lottery }
+
 };

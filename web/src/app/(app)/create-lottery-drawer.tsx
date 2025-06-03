@@ -9,6 +9,7 @@ import {
     Button,
     useDisclosure,
     Input,
+    addToast,
 } from "@heroui/react";
 import { Textarea } from "@heroui/input";
 import { DatePicker } from "@heroui/date-picker";
@@ -16,7 +17,11 @@ import { DatePicker } from "@heroui/date-picker";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { FormError } from "../ui/form";
+import { FormError } from "../../components/ui/form";
+import { createLotteryAction } from "./actions";
+import { useRouter } from "next/navigation";
+import { Controller } from "react-hook-form";
+import { getLocalTimeZone, toZoned } from "@internationalized/date";
 
 const lotterySchema = z.object({
     name: z
@@ -31,8 +36,8 @@ const lotterySchema = z.object({
         .number({ message: "Preço do cupom é obrigatório" })
         .min(1, "Preço do cupom é obrigatório"),
     drawDate: z
-        .date({ message: "Data do sorteio é obrigatório" })
-        .min(new Date(), "Data do sorteio deve ser maior que a data atual"),
+        .string({ message: "Data do sorteio é obrigatória" })
+        .trim()
 });
 
 type LotteryFormValues = z.infer<typeof lotterySchema>;
@@ -41,16 +46,44 @@ export function CreateLotteryDrawer() {
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
+    const router = useRouter();
+
     const {
         register,
         handleSubmit,
+        control,
         formState: { errors },
-    } = useForm({
+    } = useForm<LotteryFormValues>({
         resolver: zodResolver(lotterySchema),
     });
 
-    function onSubmit(data: LotteryFormValues) {
-        console.log("Tentativa de cadastro de sorteio com: ", data);
+    async function onSubmit(data: LotteryFormValues) {
+
+        console.log(data.drawDate);
+        
+
+        const response = await createLotteryAction({
+            name: data.name,
+            description: data.description,
+            drawDate: data.drawDate,
+            couponPrice: data.couponPrice
+        });
+
+        if (response.success === true) {
+            addToast({
+                title: "Sucesso",
+                description: response.message,
+                color: 'success',
+            });
+
+            return;
+        }
+
+        addToast({
+            title: "Erro",
+            description: response.message,
+            color: 'danger',
+        });
     };
 
     return (
@@ -116,16 +149,21 @@ export function CreateLotteryDrawer() {
                                         }
                                     </div>
                                     <div>
-                                        <DatePicker
-                                            label="Data do Sorteio"
-                                            onChange={(value) => {
-                                                if (value) {
-                                                    register("drawDate").onChange({
-                                                        target: { value },
-                                                        type: "change"
-                                                    })
-                                                }
-                                            }}
+                                        <Controller
+                                            name="drawDate"
+                                            control={control}
+                                            render={({ field }) => (
+                                                <DatePicker
+                                                    label="Data do Sorteio"
+                                                    onChange={(value) => {
+                                                        if (!value) return;
+
+                                                        const formatedDate = `${value.year}-${value.month.toString().padStart(2,'0')}-${value.day.toString().padStart(2,'0')}`
+
+                                                        field.onChange(formatedDate) 
+                                                    }}
+                                                />
+                                            )}
                                         />
                                         {
                                             errors.drawDate && (

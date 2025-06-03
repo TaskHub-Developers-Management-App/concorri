@@ -1,10 +1,10 @@
 import { api } from "../api-client";
 
-type CreateLotteryPayload = {
+export type CreateLotteryPayload = {
     name: string;
+    drawDate: string;
     description: string;
-    status: 'ACTIVE' | 'INACTIVE';
-    storeId: string;
+    couponPrice: number;
 }
 
 export async function createLotteryRequest(payload: CreateLotteryPayload) {

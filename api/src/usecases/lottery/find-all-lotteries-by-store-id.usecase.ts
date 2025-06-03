@@ -5,7 +5,7 @@ import { InvalidQueryError } from "../../_errors/invalid-query-filter";
 
 export async function findAllLotteriesByStoreIdUseCase(
     query: PageableQuery,
-    storeId: string
+    userId: string
 ): Promise<Pageable<Lottery>> {
 
     let shouldPaginate = query.page && query.limit;
@@ -16,14 +16,22 @@ export async function findAllLotteriesByStoreIdUseCase(
         const [storeLotteries, total] = await Promise.all([
             prismaClient.lottery.findMany({
                 where: {
-                    storeId,
+                    Store: {
+                        User: {
+                            id: userId
+                        }
+                    },
                 },
                 skip: shouldPaginate ? (page - 1) * limit : undefined,
                 take: shouldPaginate ? limit : undefined,
             }),
             prismaClient.lottery.count({
                 where: {
-                    storeId,
+                    Store: {
+                        User: {
+                            id: userId
+                        }
+                    },
                 },
             })
         ])

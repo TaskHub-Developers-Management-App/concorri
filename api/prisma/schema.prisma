@@ -40,12 +40,13 @@ model Store {
 }
 
 model Lottery {
-  id          String        @id @default(uuid())
+  id String @id @default(uuid())
+
   name        String
   description String
   status      LotteryStatus @default(ACTIVE)
-  drawDate    String        @map("draw_date")
-  drawTime    String        @map("draw_time")
+  couponPrice Float         @map("coupon_price")
+  drawDate    DateTime      @map("draw_date")
 
   Store   Store    @relation(fields: [storeId], references: [id])
   storeId String   @map("store_id")

@@ -17,6 +17,7 @@ import { CreateLotteryRoute } from "./routes/lottery/create-lottery.route";
 import { FindAllLotteriesByStoreIdRoute } from "./routes/lottery/find-all-lotteries-by-store-id.route";
 import { FindAllCouponsByLotteryIdRoute } from "./routes/coupon/find-all-coupons-by-lottery-id.route";
 import { errorHandler } from "./error-handler";
+import { FindAllLotteriesByUserIdRoute } from "./routes/lottery/find-all-lotteries-by-user-id.routes";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -36,6 +37,7 @@ app.register(GetUserProfileRoute);
 // Lottery Routes
 app.register(CreateLotteryRoute);
 app.register(FindAllLotteriesByStoreIdRoute);
+app.register(FindAllLotteriesByUserIdRoute)
 
 // Store Routes
 app.register(CreateStoreRoute);

@@ -12,13 +12,19 @@ import {
 
 import Link from "next/link";
 
-export function LotteryCard() {
+type Props = {
+    id: string;
+    name: string;
+    drawDate: string;
+}
+
+export function LotteryCard({ id, name }: Props) {
     return (
         <Link href="/lottery/123">
             <Card className="rounded-md bg-white shadow-md p-2 cursor-pointer hover:bg-gray-50 transition-colors">
                 <CardHeader className="flex items-center justify-between flex-row w-full">
                     <h2 className="font-medium text-md">
-                        Sorteio de Natal
+                        {name}
                     </h2>
                 </CardHeader>
                 <CardBody>

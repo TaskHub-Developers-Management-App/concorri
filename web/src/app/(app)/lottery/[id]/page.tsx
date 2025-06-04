@@ -1,4 +1,4 @@
-import { CreateLotteryCouponDrawer } from "@/components/lottery/create-lottery-coupon-drawer";
+import { CreateLotteryCouponDrawer } from "@/app/(app)/create-lottery-coupon-drawer";
 import { CouponsTable } from "@/components/coupons-table";
 import { Divider } from "@heroui/react";
 

@@ -9,14 +9,14 @@ import {
     Button,
     useDisclosure,
     Input,
+    addToast,
 } from "@heroui/react";
-import { Textarea } from "@heroui/input";
-import { DatePicker } from "@heroui/date-picker";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { FormError } from "../ui/form";
+import { FormError } from "../../components/ui/form";
+import { createCouponsAction } from "./actions";
+import { useParams } from "next/navigation";
 
 const couponSchema = z.object({
     customerName: z
@@ -46,16 +46,42 @@ export function CreateLotteryCouponDrawer() {
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
+    const params = useParams();
+    const lotteryId = params.id as string
+
     const {
         register,
         handleSubmit,
         formState: { errors },
+        reset,
     } = useForm({
         resolver: zodResolver(couponSchema),
     });
 
-    function onSubmit(data: CouponFormValues) {
-        console.log(data);
+    async function onSubmit(data: CouponFormValues) {
+        const response = await createCouponsAction({
+            ...data,
+            lotteryId
+        });
+
+        if (response.success === true) {
+            addToast({
+                title: "Sucesso",
+                description: response.message,
+                color: 'success',
+            });
+
+            return;
+        }
+
+        addToast({
+            title: "Erro",
+            description: response.message,
+            color: 'danger',
+        });
+
+        reset();
+        onOpenChange();
     };
 
     return (

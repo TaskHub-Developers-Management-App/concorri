@@ -58,10 +58,6 @@ export function CreateLotteryDrawer() {
     });
 
     async function onSubmit(data: LotteryFormValues) {
-
-        console.log(data.drawDate);
-        
-
         const response = await createLotteryAction({
             name: data.name,
             description: data.description,

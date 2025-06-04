@@ -62,6 +62,7 @@ model Coupon {
   customerPhone   String @map("customer_phone")
   customerAddress String @map("customer_address")
   customerCPF     String @map("customer_cpf")
+  purchasePrice   Float  @map("purchase_price")
 
   lottery   Lottery @relation(fields: [lotteryId], references: [id])
   lotteryId String  @map("lottery_id")

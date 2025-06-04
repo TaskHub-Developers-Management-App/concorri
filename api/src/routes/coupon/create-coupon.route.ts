@@ -15,6 +15,7 @@ export async function CreateCouponRoute(app: FastifyInstance) {
                         customerPhone: z.string(),
                         customerAddress: z.string(),
                         customerCPF: z.string(),
+                        purchasePrice: z.coerce.number().min(0).default(0),
                         lotteryId: z.string().uuid()
                     })
                 },
@@ -27,6 +28,7 @@ export async function CreateCouponRoute(app: FastifyInstance) {
                     customerPhone,
                     customerCPF,
                     customerAddress,
+                    purchasePrice,
                     lotteryId
                 } = request.body;
 
@@ -35,6 +37,7 @@ export async function CreateCouponRoute(app: FastifyInstance) {
                     customerPhone,
                     customerAddress,
                     customerCPF,
+                    purchasePrice,
                     lotteryId
                 })
 
